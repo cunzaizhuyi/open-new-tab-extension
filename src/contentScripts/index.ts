@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import { onMessage } from 'webext-bridge/content-script'
 import browser from 'webextension-polyfill';
-import { extensionEnabled } from '~/logic/storage'
+import { extensionEnabled } from '~/logic/storage';
+import { handleMediumLinks } from '~/contentScripts/medium-link-handler';
 // import { createApp } from 'vue'
 // import App from './views/App.vue'
 // import { setupApp } from '~/logic/common-setup'
@@ -51,6 +52,11 @@ import { extensionEnabled } from '~/logic/storage'
   // 优化的函数来处理链接点击
   function handleLinkClick(event: MouseEvent) {
     if (!isExtensionEnabled) return;
+
+    // 首先尝试处理 Medium 链接
+    if (handleMediumLinks(event)) {
+      return; // 如果成功处理了 Medium 链接，就不再继续处理
+    }
 
     const target = event.target as HTMLElement;
     const link = target.closest('a');
