@@ -3,6 +3,7 @@ import { onMessage } from 'webext-bridge/content-script'
 import browser from 'webextension-polyfill';
 import { extensionEnabled } from '~/logic/storage';
 import { handleMediumLinks } from '~/contentScripts/medium-link-handler';
+import { isWhitelisted } from '~/contentScripts/whitelist-manager';
 // import { createApp } from 'vue'
 // import App from './views/App.vue'
 // import { setupApp } from '~/logic/common-setup'
@@ -15,9 +16,11 @@ import { handleMediumLinks } from '~/contentScripts/medium-link-handler';
   let isExtensionEnabled = extensionEnabled.value;
   // 监听设置项变化
   browser.storage.onChanged.addListener((changes, area) => {
-    console.log('changes.extensionEnabled', changes.extensionEnabled)
-    isExtensionEnabled = changes.extensionEnabled.newValue === 'true'
-    console.log('passed isExtensionEnabled', isExtensionEnabled);
+    if (changes.extensionEnabled) {
+      console.log('changes.extensionEnabled', changes.extensionEnabled)
+      isExtensionEnabled = changes.extensionEnabled?.newValue === 'true'
+      console.log('passed isExtensionEnabled', isExtensionEnabled);
+    }
   });
 
   // communication example: send previous tab title from background page
@@ -50,8 +53,15 @@ import { handleMediumLinks } from '~/contentScripts/medium-link-handler';
   }
 
   // 优化的函数来处理链接点击
-  function handleLinkClick(event: MouseEvent) {
+  async function handleLinkClick(event: MouseEvent) {
     if (!isExtensionEnabled) return;
+
+    // 检查当前网站是否在白名单中
+    const currentHostname = window.location.hostname;
+    if (await isWhitelisted(currentHostname)) {
+      console.log('Current site is whitelisted, not modifying links');
+      return;
+    }
 
     // 首先尝试处理 Medium 链接
     if (handleMediumLinks(event)) {

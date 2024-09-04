@@ -1,9 +1,9 @@
 export function handleMediumLinks(event: MouseEvent): boolean {
   const target = event.target as HTMLElement;
-  const link = target.closest('a');
+//   const link = target.closest('a');
 
-  if (link && window.location.hostname === 'medium.com') {
-    const divWithDataHref = link.closest('div[data-href]');
+  if (target && window.location.hostname === 'medium.com') {
+    const divWithDataHref = target.closest('div[data-href]');
     if (divWithDataHref) {
       const dataHref = divWithDataHref.getAttribute('data-href');
       if (dataHref) {
