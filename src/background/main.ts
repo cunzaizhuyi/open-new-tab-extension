@@ -63,3 +63,4 @@ onMessage('get-current-tab', async () => {
     }
   }
 })
+
