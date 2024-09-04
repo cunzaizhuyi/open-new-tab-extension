@@ -10,7 +10,7 @@ if (import.meta.hot) {
 }
 
 // remove or turn this off if you don't use side panel
-const USE_SIDE_PANEL = true
+const USE_SIDE_PANEL = false
 
 // to toggle the sidepanel with the action button in chromium:
 if (USE_SIDE_PANEL) {
