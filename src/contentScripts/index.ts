@@ -11,10 +11,10 @@ import { sites } from './sites';
 
 
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
-(() => {
+(async () => {
   console.info('[vitesse-webext] Hello world from content script')
 
-  let isExtensionEnabled = extensionEnabled.value;
+  let isExtensionEnabled = (await browser.storage.local.get('extensionEnabled'))['extensionEnabled'] === 'true';
   // 监听设置项变化
   browser.storage.onChanged.addListener((changes, area) => {
     if (changes.extensionEnabled) {
