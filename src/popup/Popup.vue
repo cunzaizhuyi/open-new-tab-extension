@@ -3,6 +3,7 @@ import { extensionEnabled, noModifyCurrentSite } from '~/logic/storage'
 // import { sendMessage } from 'webext-bridge/content-script'
 // import browser from 'webextension-polyfill'
 import { addToWhitelist, removeFromWhitelist, isWhitelisted } from '~/contentScripts/whitelist-manager'
+import SwitchComponent from '~/components/Switch.vue';
 
 async function toggleExtension() {
   console.log('isEnabled', extensionEnabled.value);
@@ -33,16 +34,10 @@ async function toggleCurrentSite() {
     <h1 class="text-lg font-bold mb-4">Setting</h1>
     <form @submit.prevent>
       <div class="flex items-center mb-4">
-        <input 
-          id="enable-extension" 
-          type="checkbox" 
-          v-model="extensionEnabled" 
-          @change="toggleExtension"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-        >
-        <label for="enable-extension" class="ml-2 text-sm font-medium text-gray-900">
+        <label for="enable-extension" class="mr-2 text-sm font-medium text-gray-900">
           Open All Links In New Tab
         </label>
+        <SwitchComponent v-model="extensionEnabled" class="ml-2" />
       </div>
       <div v-if="false && extensionEnabled" class="flex items-center mb-4">
         <input 
