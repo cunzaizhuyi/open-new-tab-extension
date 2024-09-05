@@ -1,18 +1,18 @@
-export function handleMediumLinks(event: MouseEvent): boolean {
-  const target = event.target as HTMLElement;
-//   const link = target.closest('a');
+export function handleMedium(event: MouseEvent): void {
 
-  if (target && window.location.hostname === 'medium.com') {
+    if (window.location.hostname !== 'medium.com') return;
+
+    const target = event.target as HTMLElement;
     const divWithDataHref = target.closest('div[data-href]');
-    if (divWithDataHref) {
-      const dataHref = divWithDataHref.getAttribute('data-href');
-      if (dataHref) {
-        event.preventDefault();
-        window.open(dataHref, '_blank');
-        return true;
-      }
-    }
-  }
 
-  return false;
+    if (divWithDataHref) {
+        const dataHref = divWithDataHref.getAttribute('data-href');
+        if (dataHref) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+
+            window.open(dataHref, '_blank');
+        }
+    }
 }

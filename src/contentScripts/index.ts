@@ -2,8 +2,9 @@
 import { onMessage } from 'webext-bridge/content-script'
 import browser from 'webextension-polyfill';
 import { extensionEnabled } from '~/logic/storage';
-import { handleMediumLinks } from '~/contentScripts/medium-link-handler';
+import { handleMedium } from '~/contentScripts/medium-link-handler';
 import { isWhitelisted } from '~/contentScripts/whitelist-manager';
+import { sites } from './sites';
 // import { createApp } from 'vue'
 // import App from './views/App.vue'
 // import { setupApp } from '~/logic/common-setup'
@@ -58,16 +59,17 @@ import { isWhitelisted } from '~/contentScripts/whitelist-manager';
 
     // 检查当前网站是否在白名单中
     const currentHostname = window.location.hostname;
-    if (await isWhitelisted(currentHostname)) {
-      console.log('Current site is whitelisted, not modifying links');
+    // if (await isWhitelisted(currentHostname)) {
+    //   console.log('Current site is whitelisted, not modifying links');
+    //   return;
+    // }
+
+    if (sites.includes(currentHostname)) {
+      handleMedium(event);
       return;
     }
 
-    // 首先尝试处理 Medium 链接
-    if (handleMediumLinks(event)) {
-      return; // 如果成功处理了 Medium 链接，就不再继续处理
-    }
-
+    // 适用于大多数网站的 通用逻辑
     const target = event.target as HTMLElement;
     const link = target.closest('a');
     if (link instanceof HTMLAnchorElement && link.href) {

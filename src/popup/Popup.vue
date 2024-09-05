@@ -44,7 +44,7 @@ async function toggleCurrentSite() {
           用新标签页打开链接
         </label>
       </div>
-      <div v-if="extensionEnabled" class="flex items-center mb-4">
+      <div v-if="false && extensionEnabled" class="flex items-center mb-4">
         <input 
           id="modify-current-site" 
           type="checkbox" 
