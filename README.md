@@ -14,3 +14,7 @@ Welcome to submit websites where the plugin does not work and requires special h
 When I have free time, I will work on it.
 
 ## Install
+
+This extension has not yet been published to the app store.
+You can complete the installation in the following way: 
+download this project and upload the `extension` directory to `chrome://extensions/`.
