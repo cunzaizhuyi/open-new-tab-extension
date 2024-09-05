@@ -30,7 +30,7 @@ async function toggleCurrentSite() {
 
 <template>
   <main class="w-[300px] px-4 py-5 text-gray-700">
-    <h1 class="text-lg font-bold mb-4">插件设置</h1>
+    <h1 class="text-lg font-bold mb-4">Setting</h1>
     <form @submit.prevent>
       <div class="flex items-center mb-4">
         <input 
@@ -41,7 +41,7 @@ async function toggleCurrentSite() {
           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
         >
         <label for="enable-extension" class="ml-2 text-sm font-medium text-gray-900">
-          用新标签页打开链接
+          Open All Links In New Tab
         </label>
       </div>
       <div v-if="false && extensionEnabled" class="flex items-center mb-4">
