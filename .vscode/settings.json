@@ -11,7 +11,6 @@
   "files.associations": {
     "*.css": "postcss"
   },
-  "accessibility.signalOptions.volume": 0,
   "accessibility.signals.taskFailed": {
     "sound": "off"
   },
