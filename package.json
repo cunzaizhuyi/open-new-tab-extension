@@ -1,10 +1,10 @@
 {
-  "name": "open-new-tab-extention",
+  "name": "open-new-tab-extension",
   "displayName": "Open New Tab",
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@9.7.1",
-  "description": "This is a browser extention that can open any link on any website in a new tab.",
+  "description": "This is a browser extension that can open any link on any website in a new tab.",
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
     "dev-firefox": "npm run clear && cross-env NODE_ENV=development EXTENSION=firefox run-p dev:*",
