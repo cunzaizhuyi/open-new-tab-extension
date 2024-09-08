@@ -3,6 +3,7 @@ import { onMessage } from 'webext-bridge/content-script'
 import browser from 'webextension-polyfill';
 import { extensionEnabled } from '~/logic/storage';
 import { handleMedium } from '~/contentScripts/medium-link-handler';
+import { handleDevto } from '~/contentScripts/devto';
 import { isWhitelisted } from '~/contentScripts/whitelist-manager';
 import { sites } from './sites';
 // import { createApp } from 'vue'
@@ -66,6 +67,7 @@ import { sites } from './sites';
 
     if (sites.includes(currentHostname)) {
       handleMedium(event);
+      handleDevto(event);
       return;
     }
 
